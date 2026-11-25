@@ -1,0 +1,15 @@
+FROM node:20-alpine
+WORKDIR /app
+
+COPY package.json ./
+COPY index.html LOGIC_LAB_INTERACTIVE_EDITION.html ./
+COPY LOGIC_LAB_COLLECTORS_EDITION.pdf LOGIC_LAB_DIGITAL_EDITION.pdf LOGIC_LAB_COVER.pdf PRINTING_GUIDE.txt ./
+COPY src ./src
+COPY tests ./tests
+COPY server ./server
+COPY LOGIC_LAB_BOOKLET_SOURCE ./LOGIC_LAB_BOOKLET_SOURCE
+
+ENV PORT=3000
+EXPOSE 3000
+
+CMD ["node", "server/server.js"]

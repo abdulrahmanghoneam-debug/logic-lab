@@ -1,0 +1,56 @@
+================================================================================
+LOGIC LAB — THE COLLECTOR'S EDITION
+PRINT PRODUCTION & BINDING GUIDE (A5 SADDLE-STITCH ARABIC RTL)
+================================================================================
+
+1. DELIVERABLE FILES
+--------------------
+- LOGIC_LAB_COLLECTORS_EDITION.pdf
+    Complete 20-page interior + cover print-ready edition.
+    Sheet Size : 154 x 216 mm (A5 148 x 210 mm + 3 mm bleed on all 4 edges).
+    Trim Marks : Fine cyan corner ticks inside the 3 mm bleed zone.
+    Margins    : Asymmetric Arabic RTL gutter (15.5 mm binding gutter / 11.5 mm outer).
+
+- LOGIC_LAB_COVER.pdf
+    Separate print cover pack for specialized cover stocks:
+      * Page 1: Full Outside Wrap Spread (304 x 216 mm) — Front Cover on LEFT,
+                2 mm Center Fold Spine allowance, Back Cover on RIGHT (Arabic RTL lay-flat).
+      * Page 2: Standalone Front Cover with 3 mm bleed (154 x 216 mm).
+      * Page 3: Standalone Back Cover with 3 mm bleed (154 x 216 mm).
+
+- LOGIC_LAB_DIGITAL_EDITION.pdf
+    Exact A5 trim (148 x 210 mm), 0 mm bleed, zero crop marks, symmetric margins,
+    embedded clickable Table of Contents links, and PDF Document Outline.
+
+- LOGIC_LAB_INTERACTIVE_EDITION.html
+    Interactive browser reader supporting single-page & Arabic RTL dual-page spreads
+    plus a live mathematical Truth Table & Boolean Simplifier wired to src/logicEngine.js.
+
+2. BINDING & PAGE ORIENTATION (CRITICAL — ARABIC RTL)
+------------------------------------------------------
+- Page Count : 20 pages (5 folded sheets — exact multiple of 4 for saddle-stitch).
+- Binding    : RIGHT-EDGE SPINE (Arabic Right-to-Left reading order; pages turn Left -> Right).
+- Stitching  : 2-staple saddle-stitch (تدبيس سلك وسطي من اليمين), flat or loop staples.
+- IMPORTANT FOR PRINT SHOP: Ensure booklet imposition folds with the spine on the RIGHT side
+  when viewing the front cover face up!
+
+3. PAPER STOCK RECOMMENDATIONS
+------------------------------
+- Exterior Cover (P.01 / P.20, LOGIC_LAB_COVER.pdf):
+    * 250–300 gsm Matte Coated Art Card (كوشيه مطفي 250–300 جم) or Premium Uncoated Textured Navy Cardstock
+    * Optional Finish: Matte soft-touch lamination (سلوفان مطفي / مخملي) so the deep midnight navy (#040814) resists fingerprints, with optional Spot UV gloss on the central Turnstile geometric crest and LOGIC LAB wordmark.
+- Interior Pages (P.02 – P.19):
+    * 130–150 gsm Silk/Matte Coated Paper (كوشيه مطفي 130–150 جم) for maximum contrast on both dark feature plates (#040814) and archival off-white editorial pages (#FAFBFD).
+
+4. PRINT SETTINGS CHECKLIST
+---------------------------
+- Scale        : Print at 100% Actual Size (DO NOT select "Fit to Printable Area").
+- Color Mode   : Convert RGB PDFs through standard Coated FOGRA39 CMYK RIP profile at press;
+                 keep rich black solids for covers (e.g., C40 M30 Y20 K95) to avoid grey cast.
+- Fonts        : Subsets embedded automatically inside PDF (`IBM Plex Sans Arabic`,
+                 `Space Grotesk`, `Manrope`, `JetBrains Mono`).
+- QR Notice    : The verified QR codes on Page 17 resolve to:
+                 * Live App: https://abdulrahmanghoneam-debug.github.io/logic-lab/
+                 * Interactive Book: https://abdulrahmanghoneam-debug.github.io/logic-lab/LOGIC_LAB_INTERACTIVE_EDITION.html
+                 * Source Repo: https://github.com/abdulrahmanghoneam-debug/logic-lab
+================================================================================

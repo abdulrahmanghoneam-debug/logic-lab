@@ -1,0 +1,14 @@
+.env
+.env.local
+.env.*.local
+node_modules/
+dist/
+.agent/
+extracted_project/
+logic_lab_project.zip
+index.backup*.html
+server.js
+LOGIC_LAB_BOOKLET_SOURCE/.chrome_*
+LOGIC_LAB_BOOKLET_SOURCE/pdf_renders/
+.DS_Store
+*.log

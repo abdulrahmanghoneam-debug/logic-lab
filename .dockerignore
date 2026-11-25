@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+node_modules
+dist
+.agent
+extracted_project
+*.zip
+*.log
+index.backup*.html
+LOGIC_LAB_BOOKLET_SOURCE/.chrome_*
+LOGIC_LAB_BOOKLET_SOURCE/pdf_renders

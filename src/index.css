@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-cosmos-dark: #02040a;
+    --color-electric-blue: #2563eb;
+    --color-circuit-cyan: #06b6d4;
+    --color-signal-glow: #00f5ff;
+  }
+
+  body {
+    background-color: #02040a;
+    color: #f8fafc;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* Custom scientific grid background */
+  .bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+      linear-gradient(to right, rgba(30, 41, 59, 0.25) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30, 41, 59, 0.25) 1px, transparent 1px);
+  }
+
+  .bg-radial-glow {
+    background: radial-gradient(circle at 50% 20%, rgba(6, 182, 212, 0.12) 0%, rgba(37, 99, 235, 0.05) 45%, transparent 75%);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050a18;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Wire signal flow animation */
+@keyframes wireFlow {
+  0% {
+    stroke-dashoffset: 40;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.wire-active {
+  stroke: #00f5ff;
+  stroke-width: 3.5;
+  filter: drop-shadow(0 0 6px #00f5ff);
+  stroke-dasharray: 6 3;
+  animation: wireFlow 1.2s linear infinite;
+}
+
+.wire-inactive {
+  stroke: #1e293b;
+  stroke-width: 2.2;
+  stroke-dasharray: none;
+  opacity: 0.7;
+}
+
+/* Glassmorphism scientific card */
+.glass-panel {
+  background: rgba(10, 20, 53, 0.65);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(56, 189, 248, 0.15);
+}
+
+.glass-panel-active {
+  background: rgba(14, 28, 74, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(6, 182, 212, 0.4);
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.12);
+}

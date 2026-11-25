@@ -1,0 +1,9 @@
+{
+  "name": "logic-lab",
+  "version": "2.0.0",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node tests/logicEngine.test.js"
+  }
+}
