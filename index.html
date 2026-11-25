@@ -1018,7 +1018,7 @@
       <div class="flex items-center gap-2 sm:gap-3 text-xs font-mono text-slate-300 shrink-0">
         <button id="btn-open-voice-modal" type="button"
           class="px-2.5 py-1 rounded-lg bg-[#060E20] border border-slate-800 hover:border-cyan-400/50 hover:text-cyan-200 transition-colors flex items-center gap-1.5 text-[11px]">
-          <span id="el-dot-top" class="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+          <span id="el-dot-top" class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
           <span class="hidden sm:inline">ElevenLabs Voice</span>
           <span class="sm:hidden">Voice</span>
         </button>
@@ -1137,7 +1137,7 @@
             <div class="flex flex-wrap items-center justify-between gap-2 pt-0.5 text-[11px] font-mono text-slate-400">
               <span class="inline-flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                <span>Studio Web Audio Enabled on Language Selection</span>
+                <span>Daniel ElevenLabs Studio Audio Ready (42 AR + EN Clips)</span>
               </span>
               <button type="button" data-showcase-goto="1"
                 class="text-cyan-300 hover:text-cyan-200 inline-flex items-center gap-1.5">
@@ -1476,9 +1476,9 @@
         <button id="voice-modal-close" type="button" class="text-slate-400 hover:text-white text-sm">✕</button>
       </div>
       <p class="text-xs text-slate-300 leading-relaxed">
-        To avoid robotic browser speech, LOGIC LAB supports real <strong>ElevenLabs Multilingual v2 / Flash
-          v2.5</strong> audio via the included local server (<code>node server/server.js</code>) or a temporary
-        in-memory session key (never saved to files).
+        All 42 Arabic &amp; English intro, presentation, tour, and story narrations are pre-recorded with
+        <strong>ElevenLabs Daniel (Multilingual v2)</strong> and bundled permanently inside this app.
+        Connect <code>node server/server.js</code> or a key below only for custom live AI chat speech or alternate voices.
       </p>
       <div class="space-y-2">
         <label class="block text-[11px] font-mono text-cyan-300">ElevenLabs API Key (Saved Locally in Your
@@ -3163,6 +3163,50 @@
     // 4. NATURAL VOICE ENGINE (INTERRUPTION + SMART VOICE SELECTION + PERMISSIONS)
     // ============================================================================
     const EMBEDDED_AUDIO = /*__EMBEDDED_DANIEL_AUDIO__*/{};
+    const STATIC_AUDIO_MAP = {
+      "أهلاً بحضرتك يا دكتور محمود في LOGIC LAB. رحلة تفاعلية تحول الفرضية الواحدة إلى جدول صواب ودائرة منطقية وإثبات رياضي.": "./audio/intro_greet_ar.mp3",
+      "Welcome, Dr. Mahmoud. Step inside LOGIC LAB, where a single proposition becomes a truth table, a live circuit, and a mathematical proof.": "./audio/intro_welcome_en.mp3",
+      "أهلاً يا دكتور محمود، الصوت الطبيعي جاهز الآن.": "./audio/voice_ready_ar.mp3",
+      "Welcome, Dr. Mahmoud. Natural voice is ready.": "./audio/voice_ready_en.mp3",
+      "Welcome to LOGIC LAB. An interactive computational laboratory where formal propositions become verified truth tables, Boolean proofs, and live digital logic circuits.": "./audio/intro_overview_en.mp3",
+      "The Proposition Builder visualizes operator precedence as a live parse tree and asks for clarification whenever a natural-language sentence is ambiguous.": "./audio/pres_scene_2.mp3",
+      "In the Truth Table Generator, every intermediate column is evaluated deterministically, with clickable row explanations and instant equivalence verification.": "./audio/pres_scene_3.mp3",
+      "LOGIC LAB compiles formulas directly into interactive IEEE digital logic circuits and includes a custom circuit builder with real-time signal propagation.": "./audio/pres_scene_4.mp3",
+      "The Boolean Algebra Lab cites the exact mathematical law at every simplification step and proves equivalence with a side-by-side truth table.": "./audio/pres_scene_5.mp3",
+      "You can now ask the context-aware assistant to explain the current truth table, trace why an output is false, or launch a live challenge.": "./audio/pres_scene_6.mp3",
+      "أهلاً بحضرتك يا دكتور محمود في LOGIC LAB! أنا مساعدك الصوتي الذكي، ومش هتتفرج على عرض ثابت — إحنا هنجرب كل حاجة سوا خطوة بخطوة. خلينا نبدأ بأول أداة (Proposition Builder): قولي أي معادلة منطقية بالصوت أو اضغط على الزر الجاهز عشان نشوف شجرة الأولويات (Parse Tree) بتترسم قدامنا!": "./audio/tour_1_promptAr.mp3",
+      "Welcome, Dr. Mahmoud, to LOGIC LAB! I am your interactive guide—instead of watching slides, let us try each module hands-on. First up is the Proposition Builder: say any logical expression or click the quick-try button to see its Parse Tree built live!": "./audio/tour_1_promptEn.mp3",
+      "ممتاز يا دكتور! شفت إزاي المحرك حلل أولويات العمليات ورسم الشجرة فوراً؟ وبإمكانك طبعاً بعدين تستكشفها تفصيلياً أكتر. جاهز ننتقل للمرحلة التانية: جدول الصواب (Truth Table)؟": "./audio/tour_1_doneAr.mp3",
+      "Great job, Dr. Mahmoud! Notice how operator precedence was parsed into the tree immediately. Ready to move to Stage 2: the Truth Table Generator?": "./audio/tour_1_doneEn.mp3",
+      "دي المرحلة التانية يا دكتور: مولّد جداول الصواب (Truth Table). قولي أي معادلة تحب نعملها جدول صواب — مثلاً \"P and Q or not R\" — أو اضغط على أي صف في الجدول عشان أشرحلك كل عمود وسيط جه إزاي!": "./audio/tour_2_promptAr.mp3",
+      "Stage 2: Dynamic Truth Tables. Tell me any formula—for example, \"P and Q or not R\"—or click any row in the table so I can walk through every intermediate column!": "./audio/tour_2_promptEn.mp3",
+      "رائع يا دكتور! الجدول طلع بكل الأعمدة الوسيطة والتصنيف الرياضي الدقيق، وكل صف له إثبات خطوة بخطوة. يلا ننتقل للمرحلة التالتة: البوابات المنطقية الحية (Logic Gates)!": "./audio/tour_2_doneAr.mp3",
+      "Awesome! The truth table, intermediate columns, and row-level proof are all verified. Let us move to Stage 3: Live Digital Logic Gates!": "./audio/tour_2_doneEn.mp3",
+      "المرحلة التالتة: محاكي البوابات المنطقية (Logic Gates)! نفس المعادلة اتحولت قدامنا لدائرة حقيقية ببوابات IEEE. جرب يا دكتور تقلب أي مفتاح (P أو Q أو R) على الشاشة أو قولي معادلة جديدة وشوف الإشارة وهي بتمشي في الأسلاك!": "./audio/tour_3_promptAr.mp3",
+      "Stage 3: Live Logic Gates! Your expression is now a real IEEE digital circuit. Click any input switch (P, Q, or R) to flip 0/1—or speak a new expression—and watch the signal propagate!": "./audio/tour_3_promptEn.mp3",
+      "عظيم جداً يا دكتور! الإشارة اتحدثت في الأسلاك والبوابات لحظياً مع التحقق العكسي للمعادلة البولينية. يلا على المرحلة الرابعة: الجبر البوليني والتبسيط بالخطوات!": "./audio/tour_3_doneAr.mp3",
+      "Excellent! Signals updated live across every wire and gate with reverse Boolean verification. Ready for Stage 4: Boolean Algebra Simplification?": "./audio/tour_3_doneEn.mp3",
+      "المرحلة الرابعة: معمل الجبر البوليني (Boolean Algebra Lab)! هنا بنبسط المعادلات خطوة بخطوة مع ذكر القانون الرياضي ومقارنة جدول الصواب قبل وبعد. جرب يا دكتور تبسط معادلة أو اضغط على قانون دي مورغان!": "./audio/tour_4_promptAr.mp3",
+      "Stage 4: Boolean Algebra Lab! Here we simplify formulas step-by-step citing formal laws and proving equivalence side-by-side. Try simplifying an expression or click De Morgan’s Law!": "./audio/tour_4_promptEn.mp3",
+      "ممتاز يا دكتور! كل خطوة تبسيط اتثبتت بالقانون الرياضي وجدول الصواب المقارن. فاضل آخر محطة قوية: التحدي المباشر (Live Challenge)!": "./audio/tour_4_doneAr.mp3",
+      "Spot on! Every algebraic step is backed by its formal law and a side-by-side truth table proof. One final stop: Live Challenges!": "./audio/tour_4_doneEn.mp3",
+      "آخر مرحلة في جولتنا يا دكتور: التحدي المباشر (Live Challenge)! جرب تختار إجابة للتحدي أو اكشف الإثبات الكامل بالجدول والدائرة، وبعدها المعمل كله مفتوح قدامك بحرية كاملة!": "./audio/tour_5_promptAr.mp3",
+      "Final Stage: Live Challenge! Pick an answer or reveal the full proof, truth table, and logic circuit—after this, the entire laboratory is yours to explore freely!": "./audio/tour_5_promptEn.mp3",
+      "ألف مبروك يا دكتور محمود! كده حضرتك جربت بنفسك كل أجزاء LOGIC LAB من أول بناء المعادلة لحد التحدي المباشر. تقدر دلوقتي تدخل الـ Open Playground وتجرب أي حاجة بحرية كاملة!": "./audio/tour_5_doneAr.mp3",
+      "Tour complete, Dr. Mahmoud! You have experienced every core module of LOGIC LAB hands-on. Click Finish to enter the Open Logic Playground!": "./audio/tour_5_doneEn.mp3",
+      "Imagine a smart university vault. Proposition P means \"Power is ON.\" It can only be True (1) or False (0). Flip P below and watch its negation ¬P invert instantaneously.": "./audio/story_ch1_subEn.mp3",
+      "تخيّل معمل ذكي. الفرضية P تعني \"الكهرباء تعمل\" — قيمتها إما True (1) أو False (0). اضغط على P بالأسفل وشاهد كيف ينعكس النفي ¬P فوراً.": "./audio/story_ch1_subAr.mp3",
+      "Now add Q: \"Security Key Inserted.\" Choose how P and Q connect—AND, OR, XOR, or IMPLIES—and notice how the outcome changes live. Your choice carries forward into the next chapters.": "./audio/story_ch2_subEn.mp3",
+      "نضيف الآن Q: \"مفتاح الأمان موجود\". اختر كيف يرتبط P مع Q — AND أو OR أو XOR أو IMPLIES — واختيارك هيكمل معانا في الفصول القادمة.": "./audio/story_ch2_subAr.mp3",
+      "Testing one input isn’t a proof. Here is the complete Truth Table for the exact formula you just built. Click any row to trace its step-by-step evaluation.": "./audio/story_ch3_subEn.mp3",
+      "تجربة حالة واحدة لا تكفي للإثبات. إليك جدول الصواب الكامل لنفس المعادلة التي بنيتها — اضغط على أي صف لتتبع خطوات حسابه.": "./audio/story_ch3_subAr.mp3",
+      "Every operator maps directly to physical transistors. Click P or Q right on the schematic below to send live electrical pulses through the gates.": "./audio/story_ch4_subEn.mp3",
+      "كل عامل منطقي يتحول مباشرة إلى بوابات إلكترونية. اضغط على P أو Q على الرسمة مباشرة وشاهد نبضات الإشارة تسري في الأسلاك.": "./audio/story_ch4_subAr.mp3",
+      "In Discrete Structures, two different formulas can produce the exact same truth table. Click \"Transform\" below to watch Boolean laws replace one structure with its simpler equivalent—saving hardware gates.": "./audio/story_ch5_subEn.mp3",
+      "في الهياكل المتقطعة، يمكن استبدال معادلة معقدة بأخرى أبسط تماماً مع الحفاظ على نفس جدول الصواب 100%. اضغط \"طبّق القانون\" لتشاهد التحول الرياضي.": "./audio/story_ch5_subAr.mp3",
+      "You have walked from a single bit to circuits and algebraic proofs. Speak or type any expression—such as \"P and Q or not R\"—and watch the entire engine respond live.": "./audio/story_ch6_subEn.mp3",
+      "بعد أن شاهدت الرحلة كاملة من Bit واحد إلى الدوائر والإثباتات — قل أو اكتب أي معادلة مثل \"P and Q or not R\" وشاهد المحرك يستجيب فوراً.": "./audio/story_ch6_subAr.mp3"
+    };
 
     const AudioCache = {
       dbPromise: null,
@@ -3207,6 +3251,11 @@
   const VoiceController = {
     recognition: null,
     audioEl: null,
+    sharedAudioEl: null,
+    activeBlobUrl: null,
+    _boundAudioEl: null,
+    _audioUnlocked: false,
+    _playingRealAudio: false,
     audioCtx: null,
     analyser: null,
     freqBins: null,
@@ -3217,13 +3266,42 @@
     abortCtrl: null,
     voiceMode: 'elevenlabs',
     serverProxyAvailable: false,
+    unlockAudio() {
+      try {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) {
+          if (!this.audioCtx) this.audioCtx = new AC();
+          if (this.audioCtx.state === 'suspended') this.audioCtx.resume().catch(() => {});
+        }
+        if (!this.sharedAudioEl) this.sharedAudioEl = new Audio();
+        if (!this._audioUnlocked && !this._playingRealAudio) {
+          this._audioUnlocked = true;
+          const el = this.sharedAudioEl;
+          el.muted = true;
+          el.src = 'data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA';
+          const p = el.play();
+          if (p && p.then) {
+            p.then(() => {
+              if (!this._playingRealAudio) el.pause();
+              el.muted = false;
+            }).catch(err => {
+              if (!this._playingRealAudio && (!err || err.name !== 'AbortError')) this._audioUnlocked = false;
+              el.muted = false;
+            });
+          } else {
+            el.muted = false;
+          }
+        }
+      } catch (_) {}
+    },
     attachAnalyser(el) {
       if (!el) return;
       try {
         const AC = window.AudioContext || window.webkitAudioContext;
         if (!AC) return;
         if (!this.audioCtx) this.audioCtx = new AC();
-        if (this.audioCtx.state === 'suspended') this.audioCtx.resume();
+        if (this.audioCtx.state === 'suspended') this.audioCtx.resume().catch(() => {});
+        if (this._boundAudioEl === el) return;
         const src = this.audioCtx.createMediaElementSource(el);
         const an = this.audioCtx.createAnalyser();
         an.fftSize = 32;
@@ -3232,6 +3310,7 @@
         an.connect(this.audioCtx.destination);
         this.analyser = an;
         this.freqBins = new Uint8Array(an.frequencyBinCount);
+        this._boundAudioEl = el;
       } catch (_) { this.analyser = null; }
     },
 
@@ -3242,8 +3321,7 @@
         const m = localStorage.getItem('logic_lab_voice_mode');
         if (k) this.sessionApiKey = k;
         if (v) this.voiceId = v;
-        if (m) this.voiceMode = m;
-        else if (!k) this.voiceMode = 'silent';
+        this.voiceMode = m || 'elevenlabs';
         const keyInp = document.getElementById('el-session-key');
         const vSel = document.getElementById('el-voice-id');
         const mSel = document.getElementById('voice-engine-mode');
@@ -3255,7 +3333,7 @@
         const gInp = document.getElementById('gemini-session-key');
         if (gInp && gk) gInp.value = gk;
         const dot = document.getElementById('el-dot-top');
-        if (dot && (k || this.serverProxyAvailable)) dot.className = 'w-1.5 h-1.5 rounded-full bg-emerald-400';
+        if (dot) dot.className = `w-1.5 h-1.5 rounded-full ${this.voiceMode === 'elevenlabs' ? 'bg-emerald-400' : 'bg-cyan-400'}`;
       } catch (_) {}
     },
     speechSupported: typeof window !== 'undefined' && 'speechSynthesis' in window,
@@ -3302,19 +3380,40 @@
         if (AppState.muted || !text) { if (onEnd) onEnd(); return; }
         this.interrupt();
 
-        // 1. Real ElevenLabs with Permanent IndexedDB Audio Cache (Zero repeat API usage!)
+        // 1. Pre-recorded Studio Daniel MP3 Pack + IndexedDB + Live ElevenLabs Stream
         if (this.voiceMode === 'elevenlabs') {
           const voiceId = this.voiceId || 'onwK4e9ZLuTAKqWW03F9';
           const trimmed = text.trim();
           const cacheKey = `${voiceId}::${trimmed}`;
+          const playMediaSrc = async (src, isBlob) => {
+            if (this.activeBlobUrl) { try { URL.revokeObjectURL(this.activeBlobUrl); } catch (_) {} this.activeBlobUrl = null; }
+            if (isBlob) this.activeBlobUrl = src;
+            const el = this.sharedAudioEl || (this.sharedAudioEl = new Audio());
+            this.audioEl = el;
+            this._playingRealAudio = true;
+            el.muted = false;
+            el.onplay = () => { this.attachAnalyser(el); setAssistantState('speaking'); };
+            el.onended = () => {
+              this._playingRealAudio = false;
+              if (this.activeBlobUrl) { try { URL.revokeObjectURL(this.activeBlobUrl); } catch (_) {} this.activeBlobUrl = null; }
+              setAssistantState('idle');
+              if (onEnd) onEnd();
+            };
+            el.onerror = () => {
+              this._playingRealAudio = false;
+              if (this.activeBlobUrl) { try { URL.revokeObjectURL(this.activeBlobUrl); } catch (_) {} this.activeBlobUrl = null; }
+              setAssistantState('idle');
+              if (onEnd) onEnd();
+            };
+            el.src = src;
+            await el.play();
+          };
           try {
             setAssistantState('processing');
-            if (EMBEDDED_AUDIO[trimmed]) {
-              this.audioEl = new Audio(EMBEDDED_AUDIO[trimmed]);
-              this.audioEl.onplay = () => { this.attachAnalyser(this.audioEl); setAssistantState('speaking'); };
-              this.audioEl.onended = () => { setAssistantState('idle'); if (onEnd) onEnd(); };
-              this.audioEl.onerror = () => { setAssistantState('idle'); if (onEnd) onEnd(); };
-              await this.audioEl.play();
+            const staticFallback = (!this.serverProxyAvailable && !this.sessionApiKey) ? STATIC_AUDIO_MAP[trimmed] : null;
+            const bundledSrc = EMBEDDED_AUDIO[trimmed] || (voiceId === 'onwK4e9ZLuTAKqWW03F9' ? STATIC_AUDIO_MAP[trimmed] : staticFallback);
+            if (bundledSrc) {
+              await playMediaSrc(bundledSrc, false);
               return;
             }
             let blob = await AudioCache.get(cacheKey);
@@ -3358,15 +3457,11 @@
               if (blob) await AudioCache.set(cacheKey, blob);
             }
             if (blob) {
-              const url = URL.createObjectURL(blob);
-              this.audioEl = new Audio(url);
-              this.audioEl.onplay = () => { this.attachAnalyser(this.audioEl); setAssistantState('speaking'); };
-              this.audioEl.onended = () => { URL.revokeObjectURL(url); setAssistantState('idle'); if (onEnd) onEnd(); };
-              this.audioEl.onerror = () => { URL.revokeObjectURL(url); setAssistantState('idle'); if (onEnd) onEnd(); };
-              await this.audioEl.play();
+              await playMediaSrc(URL.createObjectURL(blob), true);
               return;
             }
           } catch (err) {
+            this._playingRealAudio = false;
             if (err && err.name === 'AbortError') return;
           }
         }
@@ -3394,7 +3489,19 @@
       },
 
       interrupt() {
-        if (this.audioEl) { try { this.audioEl.pause(); this.audioEl = null; } catch (_) { } }
+        this._playingRealAudio = false;
+        if (this.abortCtrl) { try { this.abortCtrl.abort(); } catch (_) { } this.abortCtrl = null; }
+        if (this.audioEl) {
+          try {
+            this.audioEl.onplay = null;
+            this.audioEl.onended = null;
+            this.audioEl.onerror = null;
+            this.audioEl.pause();
+            this.audioEl.currentTime = 0;
+          } catch (_) { }
+          this.audioEl = null;
+        }
+        if (this.activeBlobUrl) { try { URL.revokeObjectURL(this.activeBlobUrl); } catch (_) {} this.activeBlobUrl = null; }
         if (this.speechSupported) { try { window.speechSynthesis.cancel(); } catch (_) { } }
         if (this.recognition) { try { this.recognition.abort(); } catch (_) { } }
         const micLbl = document.getElementById('mic-btn-label');
@@ -4048,10 +4155,14 @@ Input transcript: "${cleanInput}"${altHint}`;
         welcomeCopy.dir = 'rtl';
         welcomeCopy.innerHTML = 'أهلاً بحضرتك يا <strong class="text-white font-semibold">دكتور محمود</strong>. ادخل الآن في قصة حوسبية تفاعلية — حيث تتحول الفكرة المنطقية الواحدة إلى جدول صواب، ودائرة سيليكون حية، وإثبات رياضي متكامل.';
         startLbl.textContent = 'ابدأ القصة — د. محمود';
+        const hearLbl = document.querySelector('#intro-hear-welcome span');
+        if (hearLbl) hearLbl.textContent = 'استمع لصوت الترحيب';
       } else {
         welcomeCopy.dir = 'ltr';
         welcomeCopy.innerHTML = 'Welcome, <strong class="text-white font-semibold">Dr. Mahmoud</strong>. Step inside an interactive computational story — where a single human proposition becomes formal logic, a truth table, a live silicon circuit, and a mathematical proof.';
         startLbl.textContent = 'Start — Dr. Mahmoud';
+        const hearLbl = document.querySelector('#intro-hear-welcome span');
+        if (hearLbl) hearLbl.textContent = 'Play Welcome Audio';
       }
 
       busSvg.style.opacity = '0';
@@ -5183,6 +5294,7 @@ Input transcript: "${cleanInput}"${altHint}`;
     }
 
     function bindEvents() {
+      document.addEventListener('pointerdown', () => VoiceController.unlockAudio(), { once: true, passive: true });
       // Intro
       document.getElementById('intro-skip-btn').addEventListener('click', () => closeIntro('home'));
       document.getElementById('showreel-skip-btn').addEventListener('click', () => closeIntro('home'));
@@ -5191,18 +5303,28 @@ Input transcript: "${cleanInput}"${altHint}`;
         VoiceController.interrupt();
         showLanguageGate();
       });
-      document.getElementById('intro-replay-btn').addEventListener('click', runCinematicIntro);
-      document.getElementById('intro-audio-btn').addEventListener('click', () => { AppState.muted = false; VoiceController.speak(INTRO_NARRATION); });
-      document.getElementById('intro-begin-tour').addEventListener('click', () => openFocusedStage(0));
+      document.getElementById('intro-replay-btn').addEventListener('click', () => { VoiceController.unlockAudio(); runCinematicIntro(); });
+      document.getElementById('intro-audio-btn').addEventListener('click', () => {
+        AppState.muted = false;
+        VoiceController.unlockAudio();
+        VoiceController.speak(StoryState.lang === 'ar'
+          ? 'أهلاً بحضرتك يا دكتور محمود في LOGIC LAB. رحلة تفاعلية تحول الفرضية الواحدة إلى جدول صواب ودائرة منطقية وإثبات رياضي.'
+          : INTRO_NARRATION);
+      });
+      document.getElementById('intro-begin-tour').addEventListener('click', () => { VoiceController.unlockAudio(); openFocusedStage(0); });
       document.getElementById('showcase-enter-lab').addEventListener('click', () => closeIntro('home'));
-      document.getElementById('showcase-enter-story').addEventListener('click', () => openFocusedStage(0));
+      document.getElementById('showcase-enter-story').addEventListener('click', () => { VoiceController.unlockAudio(); openFocusedStage(0); });
       document.getElementById('fs-exit-full-lab').addEventListener('click', () => closeFocusedStage('home'));
-      document.getElementById('gate-pick-ar').addEventListener('click', () => runCinematicIntro('ar'));
-      document.getElementById('gate-pick-en').addEventListener('click', () => runCinematicIntro('en'));
-      document.getElementById('intro-replay-hook').addEventListener('click', () => runCinematicIntro(StoryState.lang));
+      document.getElementById('gate-pick-ar').addEventListener('click', () => { VoiceController.unlockAudio(); runCinematicIntro('ar'); });
+      document.getElementById('gate-pick-en').addEventListener('click', () => { VoiceController.unlockAudio(); runCinematicIntro('en'); });
+      document.getElementById('intro-replay-hook').addEventListener('click', () => { VoiceController.unlockAudio(); runCinematicIntro(StoryState.lang); });
       document.getElementById('intro-hear-welcome').addEventListener('click', () => {
         AppState.muted = false;
-        VoiceController.speak("Welcome, Dr. Mahmoud. Step inside LOGIC LAB, where a single proposition becomes a truth table, a live circuit, and a mathematical proof.");
+        VoiceController.unlockAudio();
+        const greet = StoryState.lang === 'ar'
+          ? 'أهلاً بحضرتك يا دكتور محمود في LOGIC LAB. رحلة تفاعلية تحول الفرضية الواحدة إلى جدول صواب ودائرة منطقية وإثبات رياضي.'
+          : 'Welcome, Dr. Mahmoud. Step inside LOGIC LAB, where a single proposition becomes a truth table, a live circuit, and a mathematical proof.';
+        VoiceController.speak(greet);
       });
       document.getElementById('fs-lang-btn').addEventListener('click', () => {
         StoryState.lang = StoryState.lang === 'en' ? 'ar' : 'en';
@@ -5237,15 +5359,16 @@ Input transcript: "${cleanInput}"${altHint}`;
           localStorage.setItem('logic_lab_voice_mode', mode);
         } catch (_) { }
         const dot = document.getElementById('el-dot-top');
-        if (dot) dot.className = `w-1.5 h-1.5 rounded-full ${mode === 'elevenlabs' && (k || VoiceController.serverProxyAvailable) ? 'bg-emerald-400' : 'bg-cyan-400'}`;
+        if (dot) dot.className = `w-1.5 h-1.5 rounded-full ${mode === 'elevenlabs' ? 'bg-emerald-400' : 'bg-cyan-400'}`;
         closeVoiceModal();
+        VoiceController.unlockAudio();
         VoiceController.speak(AppState.tourLang === 'ar' ? 'أهلاً يا دكتور محمود، الصوت الطبيعي جاهز الآن.' : 'Welcome, Dr. Mahmoud. Natural voice is ready.');
       });
       document.getElementById('btn-precache-voices').addEventListener('click', async () => {
         const k = (document.getElementById('el-session-key').value || VoiceController.sessionApiKey || '').trim();
         const vId = document.getElementById('el-voice-id').value || 'onwK4e9ZLuTAKqWW03F9';
-        if (!k && !VoiceController.serverProxyAvailable) {
-          showToast('Paste your ElevenLabs API key above first, then click Pre-Record.');
+        if (!k && !VoiceController.serverProxyAvailable && vId !== 'onwK4e9ZLuTAKqWW03F9') {
+          showToast('Paste your ElevenLabs API key above first (or run local server) to pre-record custom voices.');
           return;
         }
         if (k) { VoiceController.sessionApiKey = k; try { localStorage.setItem('logic_lab_el_key', k); } catch (_) { } }
@@ -5253,6 +5376,12 @@ Input transcript: "${cleanInput}"${altHint}`;
         VoiceController.voiceMode = 'elevenlabs';
         const stEl = document.getElementById('voice-cache-status');
         stEl.classList.remove('hidden');
+
+        if (vId === 'onwK4e9ZLuTAKqWW03F9') {
+          stEl.textContent = '✓ All 42 Daniel (AR + EN) studio voice clips are already bundled permanently in ./audio/ (zero API usage!).';
+          showToast('All 42 Daniel AR + EN voice clips are already bundled!');
+          return;
+        }
 
         const lines = [
           "Welcome, Dr. Mahmoud. Step inside LOGIC LAB, where a single proposition becomes a truth table, a live circuit, and a mathematical proof.",
@@ -5263,24 +5392,30 @@ Input transcript: "${cleanInput}"${altHint}`;
         for (let i = 0; i < lines.length; i++) {
           const txt = lines[i];
           const key = `${vId}::${txt.trim()}`;
-          stEl.textContent = `Recording & saving Daniel voice clip ${i + 1} / ${lines.length}...`;
+          stEl.textContent = `Recording & saving voice clip ${i + 1} / ${lines.length}...`;
           const existing = await AudioCache.get(key);
           if (existing) { saved++; continue; }
           try {
-            const resp = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(vId)}?output_format=mp3_44100_128`, {
-              method: 'POST',
-              headers: { 'xi-api-key': k, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg' },
-              body: JSON.stringify({ text: txt, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.48, similarity_boost: 0.78, style: 0.15, use_speaker_boost: true } })
-            });
+            const resp = (!k && VoiceController.serverProxyAvailable)
+              ? await fetch('/api/voice/speak', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ text: txt, voiceId: vId, mode: 'narration' })
+                })
+              : await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(vId)}?output_format=mp3_44100_128`, {
+                  method: 'POST',
+                  headers: { 'xi-api-key': k, 'Content-Type': 'application/json', 'Accept': 'audio/mpeg' },
+                  body: JSON.stringify({ text: txt, model_id: 'eleven_multilingual_v2', voice_settings: { stability: 0.48, similarity_boost: 0.78, style: 0.15, use_speaker_boost: true } })
+                });
             if (resp.ok) {
               await AudioCache.set(key, await resp.blob());
               saved++;
             }
-            await new Promise(r => setTimeout(r, 320)); // gentle rate-limit spacing
+            await new Promise(r => setTimeout(r, 320));
           } catch (_) { }
         }
-        stEl.textContent = `✓ Saved ${saved} / ${lines.length} Daniel voice clips permanently in browser cache (zero future API usage!).`;
-        showToast(`Cached ${saved} Daniel voice clips permanently!`);
+        stEl.textContent = `✓ Saved ${saved} / ${lines.length} voice clips permanently in browser cache (zero future API usage!).`;
+        showToast(`Cached ${saved} voice clips permanently!`);
       });
       document.getElementById('intro-begin-home').addEventListener('click', () => closeIntro('home'));
       document.getElementById('home-start-tour').addEventListener('click', () => openFocusedStage(0));
