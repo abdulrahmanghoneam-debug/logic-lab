@@ -789,7 +789,7 @@ function buildAllPages(assetPrefix = 'assets') {
       id: 'p20', pageNum: 20, dark: true, isCover: true,
       content: `
       <div style="height:100%; padding:15mm 14mm; display:flex; flex-direction:column; justify-content:space-between; text-align:center;">
-        <div class="mono" style="font-size:7pt; color:#64748B; letter-spacing:0.22em;">LOGIC LAB · BACK COVER</div>
+        <div class="mono" style="font-size:7pt; color:#64748B; letter-spacing:0.22em;">LOGIC LAB · CLOSING PLATE</div>
 
         <div style="margin:auto 0; padding:0 4mm;">
           <div style="width:14mm; height:14mm; margin:0 auto 5mm; border-radius:3mm; border:0.35mm solid rgba(34,211,238,0.45); background:#081229; display:flex; align-items:center; justify-content:center;" class="mono">

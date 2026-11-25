@@ -3,6 +3,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { buildAllPages } = require('./booklet_pages.js');
+const { buildLuxuryFrontCoverInner, buildLuxuryBackCoverInner } = require('./cover_design.js');
 
 const ROOT = path.resolve(__dirname, '..');
 const SOURCE_DIR = __dirname;
@@ -42,45 +43,41 @@ ${pages}
 }
 
 function buildCoverHtml() {
-  const pages = buildAllPages('assets');
-  const frontPage = pages[0];
-  const backPage = pages[pages.length - 1];
-  // Extract inner trim-box content for crisp wrap spread composition
-  const frontInnerMatch = frontPage.match(/<div class="trim-area[^"]*">([\s\S]*)<\/div>\s*<\/section>/);
-  const backInnerMatch = backPage.match(/<div class="trim-area[^"]*">([\s\S]*)<\/div>\s*<\/section>/);
-  const frontInner = frontInnerMatch ? frontInnerMatch[1] : '';
-  const backInner = backInnerMatch ? backInnerMatch[1] : '';
+  const frontInner = buildLuxuryFrontCoverInner();
+  const backInner = buildLuxuryBackCoverInner();
+  const bleedPlateMarks = `
+    <div class="crop-marks">
+      <svg viewBox="0 0 154 216" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#22D3EE" stroke-width="0.28" stroke-opacity="0.72" fill="none">
+          <line x1="0" y1="3" x2="2.2" y2="3"/><line x1="3" y1="0" x2="3" y2="2.2"/>
+          <line x1="154" y1="3" x2="151.8" y2="3"/><line x1="151" y1="0" x2="151" y2="2.2"/>
+          <line x1="0" y1="213" x2="2.2" y2="213"/><line x1="3" y1="216" x2="3" y2="213.8"/>
+          <line x1="154" y1="213" x2="151.8" y2="213"/><line x1="151" y1="216" x2="151" y2="213.8"/>
+        </g>
+      </svg>
+    </div>`;
 
   return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>LOGIC LAB — Print Cover Spread &amp; Plates</title>
+  <title>LOGIC LAB — Luxury Collector's Cover &amp; Back Jacket</title>
   ${FONTS_HEAD}
   <style>
 ${stylesCss}
 .wrap-sheet {
   position: relative;
-  width: 304mm; /* Back 148 + Fold 2 + Front 148 + 3mm bleed L/R = 304mm */
+  width: 304mm; /* Back 148 + Spine Fold 2 + Front 148 + 3mm bleed L/R = 304mm */
   height: 216mm; /* 210 + 3mm bleed T/B */
   overflow: hidden;
   page-break-after: always;
-  background: #040814;
+  background: #020611;
   color: #F8FAFC;
 }
 .wrap-bg {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 65% 65% at 25% 20%, rgba(37, 99, 235, 0.16), transparent 62%),
-              linear-gradient(180deg, #040814 0%, #050B18 100%);
-}
-.wrap-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(56, 189, 248, 0.055) 0.25mm, transparent 0.25mm),
-    linear-gradient(90deg, rgba(56, 189, 248, 0.055) 0.25mm, transparent 0.25mm);
-  background-size: 10mm 10mm;
+  background: #020611;
 }
 .wrap-marks {
   position: absolute;
@@ -109,9 +106,21 @@ ${stylesCss}
   flex-direction: column;
 }
 .wrap-spine {
-  border-left: 0.2mm dashed rgba(34, 211, 238, 0.28);
-  border-right: 0.2mm dashed rgba(34, 211, 238, 0.28);
-  background: rgba(2, 6, 23, 0.65);
+  position: relative;
+  border-left: 0.16mm solid rgba(229, 193, 123, 0.22);
+  border-right: 0.16mm solid rgba(229, 193, 123, 0.22);
+  background: linear-gradient(180deg, #020611 0%, #07122B 50%, #020611 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12mm 0;
+}
+.standalone-bleed {
+  position: absolute;
+  inset: -2mm;
+  background: #020611;
+  z-index: 0;
 }
 @page coverSpread { size: 304mm 216mm; margin: 0; }
 @page singlePlate { size: 154mm 216mm; margin: 0; }
@@ -120,10 +129,9 @@ ${stylesCss}
   </style>
 </head>
 <body class="mode-print">
-  <!-- PAGE 1: Full Arabic RTL Outside Wrap Spread (Front Left · Center Fold · Back Right) -->
+  <!-- PAGE 1: Full Arabic RTL Outside Wrap Spread (Front Left · 2mm Gold-Trim Spine · Back Right) -->
   <section class="wrap-sheet">
     <div class="wrap-bg"></div>
-    <div class="wrap-grid"></div>
     <div class="wrap-marks">
       <svg viewBox="0 0 304 216" style="width:100%;height:100%;" xmlns="http://www.w3.org/2000/svg">
         <g stroke="#22D3EE" stroke-width="0.3" fill="none">
@@ -133,23 +141,35 @@ ${stylesCss}
           <line x1="0" y1="213" x2="2.2" y2="213"/><line x1="3" y1="216" x2="3" y2="213.8"/>
           <line x1="304" y1="213" x2="301.8" y2="213"/><line x1="301" y1="216" x2="301" y2="213.8"/>
           <!-- Center Spine Fold Ticks (151 & 153 mm) -->
-          <line x1="151" y1="0" x2="151" y2="2.4" stroke-dasharray="0.8 0.6"/>
-          <line x1="153" y1="0" x2="153" y2="2.4" stroke-dasharray="0.8 0.6"/>
-          <line x1="151" y1="213.6" x2="151" y2="216" stroke-dasharray="0.8 0.6"/>
-          <line x1="153" y1="213.6" x2="153" y2="216" stroke-dasharray="0.8 0.6"/>
+          <line x1="151" y1="0" x2="151" y2="2.4" stroke="#E5C17B" stroke-dasharray="0.8 0.6"/>
+          <line x1="153" y1="0" x2="153" y2="2.4" stroke="#E5C17B" stroke-dasharray="0.8 0.6"/>
+          <line x1="151" y1="213.6" x2="151" y2="216" stroke="#E5C17B" stroke-dasharray="0.8 0.6"/>
+          <line x1="153" y1="213.6" x2="153" y2="216" stroke="#E5C17B" stroke-dasharray="0.8 0.6"/>
         </g>
       </svg>
     </div>
     <div class="wrap-row">
       <div class="wrap-panel">${frontInner}</div>
-      <div class="wrap-spine"></div>
+      <div class="wrap-spine">
+        <div style="width:0.25mm; flex:1; background:linear-gradient(180deg, transparent, rgba(229,193,123,0.45), rgba(34,211,238,0.45), transparent);"></div>
+      </div>
       <div class="wrap-panel">${backInner}</div>
     </div>
   </section>
 
-  <!-- PAGE 2 & 3: Individual Front & Back Bleed Plates -->
-  ${frontPage}
-  ${backPage}
+  <!-- PAGE 2: Standalone Luxury Front Cover Plate (154 x 216 mm incl. 3mm bleed) -->
+  <section class="sheet dark-sheet" data-page="cover-front">
+    <div class="standalone-bleed"></div>
+    ${bleedPlateMarks}
+    <div class="trim-area">${frontInner}</div>
+  </section>
+
+  <!-- PAGE 3: Standalone Luxury Back Cover Plate (154 x 216 mm incl. 3mm bleed) -->
+  <section class="sheet dark-sheet" data-page="cover-back">
+    <div class="standalone-bleed"></div>
+    ${bleedPlateMarks}
+    <div class="trim-area">${backInner}</div>
+  </section>
 </body>
 </html>`;
 }
@@ -276,7 +296,7 @@ function connectCDP(wsUrl) {
 
     await renderJob('print_source.html', 'LOGIC_LAB_COLLECTORS_EDITION.pdf', true);
     await renderJob('digital_source.html', 'LOGIC_LAB_DIGITAL_EDITION.pdf', true);
-    await renderJob('cover_source.html', 'LOGIC_LAB_COVER.pdf', false);
+    await renderJob('cover_source.html', 'LOGIC_LAB_COVER.pdf', true);
   } finally {
     chrome.kill();
     server.close();
